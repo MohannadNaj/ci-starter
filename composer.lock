@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "57bf91d9f43ee75914d1edbc250e242d",
-    "content-hash": "f88ee2eea796febc762153a752218b86",
+    "hash": "dbc94e6ec784b518ea83915e9d25f4f6",
+    "content-hash": "7b4e5e7d6ec944443820749ee3b6785c",
     "packages": [
         {
             "name": "codeigniter/framework",
-            "version": "3.0.6",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bcit-ci/CodeIgniter.git",
-                "reference": "8082544c5b4b33175790f505587e202e3ca9e488"
+                "reference": "6ae943a4cea2434ccc582766724af21191e14fcd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bcit-ci/CodeIgniter/zipball/8082544c5b4b33175790f505587e202e3ca9e488",
-                "reference": "8082544c5b4b33175790f505587e202e3ca9e488",
+                "url": "https://api.github.com/repos/bcit-ci/CodeIgniter/zipball/6ae943a4cea2434ccc582766724af21191e14fcd",
+                "reference": "6ae943a4cea2434ccc582766724af21191e14fcd",
                 "shasum": ""
             },
             "require": {
@@ -37,7 +37,7 @@
             ],
             "description": "The CodeIgniter framework",
             "homepage": "https://codeigniter.com",
-            "time": "2016-03-21 16:26:30"
+            "time": "2016-07-26 17:36:48"
         }
     ],
     "packages-dev": [
