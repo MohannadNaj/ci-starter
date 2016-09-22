@@ -9,7 +9,7 @@
                 <div class="col-md-12">
                     Login via
                     <div class="social-buttons">
-                        <a href="{{ url('auth/twitter')}}" class="btn btn-tw"><i class="fa fa-twitter"></i> Twitter</a>
+                        <a href="<?=base_url('hauth/twitter')?>" class="btn btn-tw"><i class="fa fa-twitter"></i> Twitter</a>
                     </div>
                     or
                     <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
@@ -20,7 +20,7 @@
                         <div class="form-group">
                             <label class="sr-only" for="exampleInputPassword2">Password</label>
                             <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
-                            <div class="help-block text-right"><a href="">Forget the password ?</a></div>
+                            <div class="help-block text-right"><a href="<?=site_url('auth/forgot_password/')?>">Forget the password ?</a></div>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary btn-block">Sign in</button>
