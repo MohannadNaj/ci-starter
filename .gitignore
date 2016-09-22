@@ -13,3 +13,4 @@ composer.phar
 application/logs/
 .env
 ci_sessions/*
+node_modules/
