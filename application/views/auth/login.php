@@ -1,7 +1,7 @@
 <h1><?php echo lang('login_heading');?></h1>
 <p><?php echo lang('login_subheading');?></p>
 
-<div id="infoMessage"><?php echo $message;?></div>
+<div id="infoMessage" class="alert alert-warning"><?php echo $message;?></div>
 
 <?php echo form_open("auth/login");?>
 
