@@ -36,10 +36,7 @@
       </form>
       <ul class="nav navbar-nav navbar-right">
         <?
-        if($this->session->userdata('logged_in'))
-            $this->load->view('shared/user/navbar-wizard');
-        else
-            $this->load->view('shared/guest/navbar-wizard');
+            $this->load->view('shared/'.$auth_view. '/navbar-wizard');
         ?>
       </ul>
     </div><!-- /.navbar-collapse -->  </div><!-- /.container-fluid -->
