@@ -9,13 +9,12 @@
 </head>
 <body>
 <div class="container-fluid">
-
     <header class="row">
         <? $this->load->view('shared/header'); ?>
     </header>
 
     <div id="main" class="row">
-        <? $this->load->view($main_content); ?>
+        <?= $yield ?>
     </div>
 
     <footer class="footer">
