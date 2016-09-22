@@ -1,0 +1,61 @@
+//colors
+$white_80: rgba(255,255,255,.8);
+$color_alto_approx: #ddd;
+$white: #fff;
+$color_azure_approx: #3b5998;
+$color_indigo_approx: #496ebc;
+$color_picton_blue_approx: #55acee;
+
+@-ms-viewport {
+    width: device-width;
+}
+@-o-viewport {
+    width: device-width;
+}
+@viewport {
+    width: device-width;
+}
+
+.navbar-static-top {
+    margin-bottom: 19px;
+}
+#login-dp {
+    min-width: 250px;
+    padding: 14px 14px 0;
+    overflow: hidden;
+    background-color: $white_80;
+    .help-block {
+        font-size: 12px;
+    }
+    .bottom {
+        background-color: $white_80;
+        border-top: 1px solid $color_alto_approx;
+        clear: both;
+        padding: 14px;
+    }
+    .social-buttons {
+        margin: 12px 0;
+        a {
+            width: 49%;
+        }
+    }
+    .form-group {
+        margin-bottom: 10px;
+    }
+}
+.btn-fb {
+    color: $white;
+    background-color: $color_azure_approx;
+    &:hover {
+        color: $white;
+        background-color: $color_indigo_approx;
+    }
+}
+.btn-tw {
+    color: $white;
+    background-color: $color_picton_blue_approx;
+    &:hover {
+        color: $white;
+        background-color: $color_picton_blue_approx;
+    }
+}
