@@ -4,7 +4,7 @@ require('laravel-elixir-vue');
 
 elixir.config.sourcemaps = true;
 elixir.config.appPath = 'application';
-elixir.config.viewPath = 'application/views';
+elixir.config.viewPath = 'resources/views';
 
 
 elixir(mix => {
