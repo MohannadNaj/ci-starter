@@ -103,7 +103,7 @@ $autoload['helper'] = array('php_string_functions','url','global');
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = array();
+$autoload['config'] = array('app');
 
 /*
 | -------------------------------------------------------------------
