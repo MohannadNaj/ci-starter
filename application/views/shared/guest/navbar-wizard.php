@@ -1,3 +1,5 @@
+<?php
+$hybridauth = include(APPPATH . 'views' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'hybridauthlib.php');?>
 <li>
     <p class="navbar-text">Already have an account?</p>
 </li>
@@ -9,7 +11,22 @@
                 <div class="col-md-12">
                     Login via
                     <div class="social-buttons">
-                        <a href="<?=base_url('hauth/twitter')?>" class="btn btn-tw"><i class="fa fa-twitter"></i> Twitter</a>
+                    <?php foreach ($providers as $provider_key => $settings): ?>
+                    <? if(array_key_exists($provider_key, $hybridauth)) {
+                            $provider = $hybridauth[$provider_key];
+                            $provider['label'] = (empty($provider['label']) ? $provider_key : $provider['label']);
+                            $provider['font_awesome'] = (empty($provider['font_awesome']) ? '' : $provider['font_awesome']);
+                            $provider['btn_class'] = (empty($provider['btn_class']) ? 'btn-' . strtolower($provider_key) : $provider['btn_class']);
+                        } else {
+                            $provider = array(
+                                'label' => $provider_key,
+                                'font_awesome' => '',
+                                'btn_class' => 'btn-' . strtolower($provider_key)
+                                );
+                        }
+                    ?>
+                        <a href="<?=base_url(config_item('hybridauth_login_route_prefix') . $provider_key)?>" class="btn <?=$provider['btn_class']?>"><i class="fa <?=$provider['font_awesome']?>"></i> <?=$provider['label']?></a>
+                    <?php endforeach ?>
                     </div>
                     or
                     <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
