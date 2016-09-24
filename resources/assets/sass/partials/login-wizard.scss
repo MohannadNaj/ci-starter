@@ -43,19 +43,3 @@ $color_picton_blue_approx: #55acee;
         margin-bottom: 10px;
     }
 }
-.btn-fb {
-    color: $white;
-    background-color: $color_azure_approx;
-    &:hover {
-        color: $white;
-        background-color: $color_indigo_approx;
-    }
-}
-.btn-tw {
-    color: $white;
-    background-color: $color_picton_blue_approx;
-    &:hover {
-        color: $white;
-        background-color: $color_picton_blue_approx;
-    }
-}

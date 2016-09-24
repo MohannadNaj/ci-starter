@@ -17,6 +17,7 @@
     "vue-resource": "^0.9.3"
   },
   "dependencies": {
+    "bootstrap-social": "^5.0.0",
     "components-font-awesome": "^4.6.1",
     "npm-modernizr": "^2.8.3"
   }
