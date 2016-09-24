@@ -1,5 +1,5 @@
 <?php
-$hybridauth = include(APPPATH . 'views' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'hybridauthlib.php');?>
+$hybridauth = include(VIEWSDIR . 'config' . DIRECTORY_SEPARATOR . 'hybridauthlib.php');?>
 <li>
     <p class="navbar-text">Already have an account?</p>
 </li>
