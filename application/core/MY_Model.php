@@ -214,8 +214,8 @@ class MY_Model extends CI_Model
         if ($data !== FALSE)
         {
             $data = $this->trigger('before_create', $data);
-
-            $this->_database->insert($this->_table, $data);
+            $this->_database->set($data);
+            $this->_database->insert($this->_table);
             $insert_id = $this->_database->insert_id();
 
             $this->trigger('after_create', $insert_id);
