@@ -4,6 +4,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Home extends My_Controller {
 	protected $layout = "layout";
 
+	function __construct()
+	{
+		parent::__construct();
+		$this->data['providers'] = $this->hybridauthlib->getProviders();
+	}
 	public function index()
 	{
 		$this->data['auth_view'] =  ($this->ion_auth->logged_in() ? "user" : "guest");
