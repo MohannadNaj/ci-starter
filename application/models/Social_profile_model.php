@@ -32,6 +32,8 @@ class Social_profile_model extends My_Model
 		'token' => ['type' => 'text', 'length' => null ],
 		'secret_token' => ['type' => 'text', 'length' =>	null ]
 ];
+    public $belongs_to = array( 'user' );
+
 	public function mapHybridAuth($profile) {
 		if(empty($profile['identifier'])) 
 			return false;
@@ -73,12 +75,18 @@ class Social_profile_model extends My_Model
 	public function save()
 	{
 		if($this->isFirstTime()) {
-			if($this->insert($this->data))
+			if($this->insert($this->data)) {
+				$this->data['id'] = $this->db->insert_id();
 				return true;
+			}
 		} else {
 			if($this->update($this->data['id'], $this->data))
 				return true;
 		}
 		return false;
+	}
+
+	public function getUser($id = null) {
+		return $this->with('user')->get($id == null ? $this->data['id'] : $id)->user;
 	}
 }
