@@ -59,9 +59,7 @@ class Ion_auth
 		$this->load->config('ion_auth', TRUE);
 		$this->load->library(array('email'));
 		$this->lang->load('ion_auth');
-		$this->load->helper(array('cookie', 'language','url'));
-
-		$this->load->library('session');
+		$this->load->helper(array('cookie', 'language'));
 
 		$this->load->model('ion_auth_model');
 
