@@ -46,6 +46,16 @@ class Hauth extends CI_Controller {
 								$this->ion_auth->set_session($user);
 							} else {
 								// new social-only account
+								$this->load->model("user_model");
+								extract($this->prepareNewSocialUser($provider, $data));
+								$id = $this->ion_auth->register($identity, $password, $email); //ionAuth returns last inserted id if the insert was successful.
+								if($id && $this->social->getId()) {
+									if( $this->social->update( $this->social->getId() , ['user_id' => $id]) ) {
+										$this->ion_auth->set_session($this->social->getUser($user));
+									}
+								} else {
+									$this->session->set_flashdata('temp', 'our developer fu**ed up something!');
+								}
 							}
 								redirect(site_url());
 						} else {
@@ -105,5 +115,21 @@ class Hauth extends CI_Controller {
 		}
 
 		require_once APPPATH.'../vendor/hybridauth/hybridauth/hybridauth/index.php';
+	}
+
+	public function prepareNewSocialUser($provider, $data) {
+		$result = array();
+		if($this->user_model->get_by('username', $data['user_profile']['displayname'])) {
+			$result['identity'] = substr($data['user_profile']['displayname'] , 0, 100);
+		} else {
+			$result['identity'] =  substr( $data['user_profile']['identifier'] . '_'. $provider , 0, 99);
+		}
+		$result['password'] = sha1(json_encode($data['user_profile']['displayname'] . $provider . time() ));
+		if(empty($data['user_profile']['email'])) {
+			$result['email'] = substr( $data['user_profile']['identifier'] . "@". $provider . ".xyz" , 0 , 99);
+		} else {
+			$result['email'] = $data['user_profile']['email'];
+		}
+		return $result;
 	}
 }
