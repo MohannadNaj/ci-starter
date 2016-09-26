@@ -22,7 +22,6 @@ class Hauth extends CI_Controller {
 	{
 		try
 		{
-
 			if ($this->hybridauthlib->providerEnabled($provider))
 			{
 				$service = $this->hybridauthlib->authenticate($provider);
@@ -35,11 +34,12 @@ class Hauth extends CI_Controller {
 					$sess = unserialize($this->hybridauthlib->getSessionData());
 					$data['user_profile']['token'] = isset($sess['hauth_session.' . strtolower($provider) . '.token.access_token']) ? unserialize($sess['hauth_session.' . strtolower($provider) . '.token.access_token']) : '';
 					$data['user_profile']['secret_token'] = isset($sess['hauth_session.' . strtolower($provider) . '.token.access_token_secret']) ? unserialize($sess['hauth_session.' . strtolower($provider) . '.token.access_token_secret']) : '';
-					
 					$this->load->model(array('Social_profile_model' => 'social'));
+					if($this->session->userdata('identity') && $this->session->userdata('user_id')) {
+						$this->social->setUser($this->session->userdata('user_id'));
+					}
 					if($this->social->mapHybridAuth($data['user_profile'])) {
 						if($this->social->save()) {
-							dd($provider, 0);
 						} else {
 							dd('db_error');
 						}
