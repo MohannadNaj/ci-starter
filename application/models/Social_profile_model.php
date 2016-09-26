@@ -89,4 +89,14 @@ class Social_profile_model extends My_Model
 	public function getUser($id = null) {
 		return $this->with('user')->get($id == null ? $this->data['id'] : $id)->user;
 	}
+
+	public function getId()
+	{
+		return isset($this->data['id']) ? $this->data['id'] : FALSE;
+	}
+
+	public function setUser($id)
+	{
+		return $this->data['user_id'] = $id;
+	}
 }
