@@ -40,6 +40,14 @@ class Hauth extends CI_Controller {
 					}
 					if($this->social->mapHybridAuth($data['user_profile'])) {
 						if($this->social->save()) {
+							$user = $this->social->getUser();
+							if($user) {
+								// already has a logged in account.
+								$this->ion_auth->set_session($user);
+							} else {
+								// new social-only account
+							}
+								redirect(site_url());
 						} else {
 							dd('db_error');
 						}
