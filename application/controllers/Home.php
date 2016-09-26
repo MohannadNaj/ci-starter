@@ -11,7 +11,6 @@ class Home extends My_Controller {
 	}
 	public function index()
 	{
-		$this->data['auth_view'] =  ($this->ion_auth->logged_in() ? "user" : "guest");
 		$this->data['main_content'] = "home";
 	}
 

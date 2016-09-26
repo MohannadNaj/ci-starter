@@ -7,6 +7,7 @@ class App
 	{
 		$this->ci =& get_instance();
 		$data['providers'] = $this->ci->hybridauthlib->getProviders();
+		$data['auth_view'] =  ($this->ci->ion_auth->logged_in() ? "user" : "guest");
 		$this->ci->load->vars($data);
 		$this->init();
 	}
