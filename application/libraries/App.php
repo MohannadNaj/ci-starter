@@ -6,6 +6,8 @@ class App
 	function __construct($config = array())
 	{
 		$this->ci =& get_instance();
+		$data['providers'] = $this->ci->hybridauthlib->getProviders();
+		$this->ci->load->vars($data);
 		$this->init();
 	}
 
