@@ -37,17 +37,20 @@ class Hauth extends CI_Controller {
 					if($this->social->mapHybridAuth($data['user_profile'])) {
 						if($this->social->save()) {
 							$user = $this->social->getUser();
+							$this->load->model("user_model");
 							if($user) {
 								// already has a logged in account.
 								// TODO: check if the user has a photoURL, and update if not. 
+								// TODO: re-strucure, unnecessary multiple SQL queries.
 								$this->ion_auth->set_session($user);
+								$this->session->set_userdata(array('user' => $this->user_model->getUser($user->id)));
 							} else {
 								// new social-only account
-								$this->load->model("user_model");
 								extract($this->__prepareNewSocialUser($provider, $data));
 								$id = $this->ion_auth->register($identity, $password, $email, $additional_data); //ionAuth returns last inserted id if the insert was successful.
 								if($id && $this->social->getId()) {
 									if( $this->social->update( $this->social->getId() , ['user_id' => $id]) ) {
+										$this->session->set_userdata(array('user' => $this->user_model->getUser($id)));
 										$this->ion_auth->set_session($this->social->getUser($user));
 									}
 								} else {
@@ -116,6 +119,7 @@ class Hauth extends CI_Controller {
 
 	public function __prepareNewSocialUser($provider, $data) {
 		$result = array();
+		$result['additional_data']['is_password_by_social'] = true;
 		$result['additional_data']['photoURL'] = $data['user_profile']['photoURL'];
 
 		if($this->user_model->get_by('username', $data['user_profile']['displayname'])) {
