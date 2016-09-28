@@ -29,11 +29,7 @@ class Hauth extends CI_Controller {
 				{
 					$user_profile = $service->getUserProfile();
 
-					$data['user_profile'] = (array) $user_profile;
-					$data['user_profile']['social_provider'] = $provider;
-					$sess = unserialize($this->hybridauthlib->getSessionData());
-					$data['user_profile']['token'] = isset($sess['hauth_session.' . strtolower($provider) . '.token.access_token']) ? unserialize($sess['hauth_session.' . strtolower($provider) . '.token.access_token']) : '';
-					$data['user_profile']['secret_token'] = isset($sess['hauth_session.' . strtolower($provider) . '.token.access_token_secret']) ? unserialize($sess['hauth_session.' . strtolower($provider) . '.token.access_token_secret']) : '';
+					$data['user_profile'] = $this->__prepareUserProfile($user_profile, $provider);
 					$this->load->model(array('Social_profile_model' => 'social'));
 					if($this->session->userdata('identity') && $this->session->userdata('user_id')) {
 						$this->social->setUser($this->session->userdata('user_id'));
@@ -47,7 +43,7 @@ class Hauth extends CI_Controller {
 							} else {
 								// new social-only account
 								$this->load->model("user_model");
-								extract($this->prepareNewSocialUser($provider, $data));
+								extract($this->__prepareNewSocialUser($provider, $data));
 								$id = $this->ion_auth->register($identity, $password, $email); //ionAuth returns last inserted id if the insert was successful.
 								if($id && $this->social->getId()) {
 									if( $this->social->update( $this->social->getId() , ['user_id' => $id]) ) {
@@ -117,7 +113,7 @@ class Hauth extends CI_Controller {
 		require_once APPPATH.'../vendor/hybridauth/hybridauth/hybridauth/index.php';
 	}
 
-	public function prepareNewSocialUser($provider, $data) {
+	public function __prepareNewSocialUser($provider, $data) {
 		$result = array();
 		if($this->user_model->get_by('username', $data['user_profile']['displayname'])) {
 			$result['identity'] = substr($data['user_profile']['displayname'] , 0, 100);
@@ -131,5 +127,15 @@ class Hauth extends CI_Controller {
 			$result['email'] = $data['user_profile']['email'];
 		}
 		return $result;
+	}
+
+	public function __prepareUserProfile($user_profile, $provider)
+	{
+		$user_profile = (array) $user_profile;
+		$user_profile['social_provider'] = $provider;
+		$sess = unserialize($this->hybridauthlib->getSessionData());
+		$user_profile['token'] = isset($sess['hauth_session.' . strtolower($provider) . '.token.access_token']) ? unserialize($sess['hauth_session.' . strtolower($provider) . '.token.access_token']) : '';
+		$user_profile['secret_token'] = isset($sess['hauth_session.' . strtolower($provider) . '.token.access_token_secret']) ? unserialize($sess['hauth_session.' . strtolower($provider) . '.token.access_token_secret']) : '';
+		return $user_profile;
 	}
 }
