@@ -33,7 +33,7 @@ if(!function_exists('imgurl_to_thumb'))
 		function imgurl_to_thumb($remote, $id) {
 			$ci =& get_instance();
 			$target = UPLOADSDIR . $id;
-
+			// TODO: check if dir exist and mkdir if not.
 			if(@copy($remote, $target)) {
 				$config['image_library'] = 'gd2';
 				$config['source_image'] = $target;
