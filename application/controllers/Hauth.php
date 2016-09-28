@@ -37,26 +37,30 @@ class Hauth extends CI_Controller {
 					if($this->social->mapHybridAuth($data['user_profile'])) {
 						if($this->social->save()) {
 							$user = $this->social->getUser();
+							$user_id = null;
 							$this->load->model("user_model");
 							if($user) {
 								// already has a logged in account.
+								$user_id = $user->id;
 								// TODO: check if the user has a photoURL, and update if not. 
 								// TODO: re-strucure, unnecessary multiple SQL queries.
 								$this->ion_auth->set_session($user);
-								$this->session->set_userdata(array('user' => $this->user_model->getUser($user->id)));
+								$this->session->set_userdata(array('user' => $this->user_model->getUser($user_id)));
 							} else {
 								// new social-only account
 								extract($this->__prepareNewSocialUser($provider, $data));
-								$id = $this->ion_auth->register($identity, $password, $email, $additional_data); //ionAuth returns last inserted id if the insert was successful.
-								if($id && $this->social->getId()) {
-									if( $this->social->update( $this->social->getId() , ['user_id' => $id]) ) {
-										$this->session->set_userdata(array('user' => $this->user_model->getUser($id)));
+								$user_id = $this->ion_auth->register($identity, $password, $email, $additional_data); //ionAuth returns last inserted id if the insert was successful.
+								if($user_id && $this->social->getId()) {
+									if( $this->social->update( $this->social->getId() , ['user_id' => $user_id]) ) {
+										$this->session->set_userdata(array('user' => $this->user_model->getUser($user_id)));
 										$this->ion_auth->set_session($this->social->getUser($user));
 									}
 								} else {
 									$this->session->set_flashdata('temp', 'our developer fu**ed up something!');
 								}
 							}
+								if(!empty($data['user_profile']))
+									imgurl_to_thumb($data['user_profile']['photoURL'], $user_id);
 								redirect(site_url());
 						} else {
 							dd('db_error');

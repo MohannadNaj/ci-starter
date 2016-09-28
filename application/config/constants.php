@@ -86,3 +86,4 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 defined('VIEWSDIR') OR define('VIEWSDIR', APPPATH . str_ireplace('/', DIRECTORY_SEPARATOR, '../resources/views/'));
 defined('LANGDIR') OR define('LANGDIR', APPPATH . str_ireplace('/', DIRECTORY_SEPARATOR, '../resources/'));
+defined('UPLOADSDIR') OR define('UPLOADSDIR', FCPATH . str_ireplace('/', DIRECTORY_SEPARATOR, 'uploads/'));

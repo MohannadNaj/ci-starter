@@ -19,3 +19,4 @@ ci_sessions/*
 !/node_modules/laravel-elixir-webpack-official/dist/
 /node_modules/laravel-elixir-webpack-official/dist/*
 !/node_modules/laravel-elixir-webpack-official/dist/WebpackTask.js
+public/uploads/*
