@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], 'localhost:8080') ? 'http://localhost:8080/ci_boilerplate/public/' : '';
+$config['base_url'] = isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'] , 'localhost:8080') ? 'http://localhost:8080/ci_boilerplate/public/' : '';
 
 /*
 |--------------------------------------------------------------------------

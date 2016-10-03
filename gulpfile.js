@@ -1,5 +1,6 @@
 const elixir = require('laravel-elixir');
 
+
 require('laravel-elixir-vue');
 
 elixir.config.sourcemaps = true;
@@ -32,6 +33,7 @@ elixir(mix => {
 	/* browserSync - development only */
 	    mix.browserSync(
 	    	{
-	    		proxy: 'http://127.0.0.1/ci_boilerplate/public/'
+	    		proxy: 'http://127.0.0.1/ci_boilerplate/public/',
+	    		port: 8080
 	    	});
 });
