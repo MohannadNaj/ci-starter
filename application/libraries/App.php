@@ -30,6 +30,17 @@ class App
 		return $this->jsVars;
 	}
 
+	public function updateUserSession() {
+		$id = $this->ci->session->userdata('user_id');
+		if(!$id)
+			return false;
+		$this->load->model('user_model');
+		$user = $this->user_model->getUser($id);
+		if($user)
+			$this->session->set_userdata(array('user' => $user));
+		else
+			return false;
+	}
 }
 
 /* End of file HybridAuthLib.php */
