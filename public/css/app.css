@@ -8797,6 +8797,26 @@ button.close {
     color: #720e9e;
     background-color: #fff; }
 
+.full-width {
+  width: 100%; }
+
+.navbar-nav img.thumb-img {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-top: -2px;
+  float: left; }
+
+.navbar-nav .profile-dropdown {
+  padding: 20px; }
+
+.navbar-nav .profile-dropdown li {
+  margin-bottom: 10px; }
+
+.profile-dropdown li a {
+  text-align: left !important; }
+
 /* Get Shit Done */
 .navbar-nav > li > .dropdown-menu, .dropdown .dropdown-menu {
   -webkit-transform: scale(0);
