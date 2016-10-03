@@ -14,4 +14,12 @@ class User_model extends My_Model
 		$result = $this->db->select($this->fields)->from($this->_table)->where(array('id' => $id))->limit(1)->get()->result_array();
 		return isset($result[0]) ? $result[0] : false;
 	}
+
+	public function getUserByUserName($username = null) {
+		if(empty($username)) return false;
+		
+		$result = $this->db->select($this->fields)->from($this->_table)->where(array('username' => $username))->limit(1)->get()->result_array();
+		return isset($result[0]) ? $result[0] : false;
+	}
+
 }
