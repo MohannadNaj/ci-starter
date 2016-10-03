@@ -1,8 +1,5 @@
 <?php
 $hybridauth = include(VIEWSDIR . 'config' . DIRECTORY_SEPARATOR . 'hybridauthlib.php');?>
-<li>
-    <p class="navbar-text">Already have an account?</p>
-</li>
 <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
     <ul id="login-dp" class="dropdown-menu">
@@ -29,15 +26,15 @@ $hybridauth = include(VIEWSDIR . 'config' . DIRECTORY_SEPARATOR . 'hybridauthlib
                     <?php endforeach ?>
                     </div>
                     or
-                    <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                    <?=form_open($auth_route . "/login");?>
                         <div class="form-group">
-                            <label class="sr-only" for="exampleInputEmail2">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
+                            <label for="indentity"><?=lang('login_identity_label');?></label>
+                            <input type="text" name="identity" class="form-control" placeholder="<?=lang('login_identity_label');?>" required>
                         </div>
                         <div class="form-group">
-                            <label class="sr-only" for="exampleInputPassword2">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
-                            <div class="help-block text-right"><a href="<?=site_url('auth/forgot_password/')?>">Forget the password ?</a></div>
+                            <label for="password">Password</label>
+                            <input type="password" name="password" class="form-control" placeholder="<?=lang('login_password_label')?>" required>
+                            <div class="help-block text-right"><a href="<?=site_url($auth_route .'/forgot_password/')?>">Forget the password ?</a></div>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary btn-block">Sign in</button>

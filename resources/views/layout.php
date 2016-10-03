@@ -14,7 +14,9 @@
     </header>
 
     <div id="main" class="row">
-        <?= $yield ?>
+        <div class="container">
+            <?= $yield ?>
+        </div>
     </div>
 
     <footer class="footer">
