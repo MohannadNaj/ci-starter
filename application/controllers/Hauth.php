@@ -129,12 +129,16 @@ class Hauth extends CI_Controller {
 		$result['additional_data']['is_password_by_social'] = true;
 		$result['additional_data']['photoURL'] = $data['user_profile']['photoURL'];
 
-		if($this->user_model->get_by('username', $data['user_profile']['displayname'])) {
-			$result['identity'] = substr($data['user_profile']['displayname'] , 0, 100);
-		} else {
-			$result['identity'] =  substr( $data['user_profile']['identifier'] . '_'. $provider , 0, 99);
-		}
-		$result['password'] = sha1(json_encode($data['user_profile']['displayname'] . $provider . time() ));
+		$this->load->library('slug', array(
+		    'field' => 'username',
+		    'table' => 'users',
+		    'id' => 'id',
+		));
+		$result['identity'] = $this->slug->create_uri(array(
+		    'username' => $data['user_profile']['displayName'],
+		));
+
+		$result['password'] = sha1(json_encode($data['user_profile']['displayName'] . $provider . time() ));
 		if(empty($data['user_profile']['email'])) {
 			$result['email'] = substr( $data['user_profile']['identifier'] . "@". $provider . ".xyz" , 0 , 99);
 		} else {
