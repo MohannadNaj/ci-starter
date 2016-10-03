@@ -15,7 +15,7 @@ class App
 		$data['auth_view'] =  ($this->ci->ion_auth->logged_in() ? "user" : "guest");
 		$data['is_user'] = $this->ci->ion_auth->logged_in() ;
 		$data['is_password_by_social'] = $this->ci->session->userdata('user')['is_password_by_social'];
-
+		$data['auth_route'] = config_item('ionauth_login_route_prefix');
 		$this->ci->load->vars($data);
 	}
 }
