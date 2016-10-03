@@ -57,8 +57,13 @@ class Auth extends My_Controller {
 			// check to see if the user is logging in
 			// check for "remember me"
 			$remember = (bool) $this->input->post('remember');
-
-			if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember))
+			
+			$login = $this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember);
+			if(! $login) {
+				$this->ion_auth_model->identity_column = 'email';
+				$login = $this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember);
+			}
+			if ($login)
 			{
 				//if the login is successful
 				$this->load->model("user_model");							
