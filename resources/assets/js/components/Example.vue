@@ -7,6 +7,7 @@
 
                     <div class="panel-body">
                         I'm an example component!
+                        <button @click="fire" type="button" class="btn btn-default">button</button>
                     </div>
                 </div>
             </div>
@@ -18,6 +19,16 @@
     export default {
         ready() {
             console.log('Component ready.')
+        },
+
+        methods: {
+            fire() {
+              this.$http.post(base_url + 'home/temp/')
+              .then(response => {
+                console.log(response.data);
+            });
+
+            }
         }
     }
 </script>

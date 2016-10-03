@@ -28,6 +28,8 @@
     <meta name="twitter:image" content="" /> <!-- 144p -->
     <meta name="twitter:url" content="" />
     <meta name="twitter:card" content="" />
+    <meta id="_token_name" content="<?= $this->security->get_csrf_token_name(); ?>"> 
+    <meta id="_token_value" content="<?= $this->security->get_csrf_hash(); ?>"> 
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="<?=site_url('css/app.css') ?>">
 

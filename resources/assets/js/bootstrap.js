@@ -26,11 +26,12 @@ require('vue-resource');
  */
 
 Vue.http.interceptors.push((request, next) => {
-    request.headers['X-CSRF-TOKEN'] = Laravel.csrfToken;
-
+	var token_name = $("#_token_name").attr('content');
+	var token_value = $("#_token_value").attr('content');
+    request.headers[token_name] = token_value;
     next();
 });
-
+require('./components/Example.vue');
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
