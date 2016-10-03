@@ -33,5 +33,13 @@
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="<?=site_url('css/app.css') ?>">
 
+    <script type="text/javascript">
+<?
+    foreach($this->app->getJsVars() as $key => $val) {
+        echo 'var ' . $key . ' = ' . (is_string($val) ? '"' . $val . '"' : json_encode($val, JSON_PRETTY_PRINT)) . ";\n\r";
+    }
+?>
+    </script>
+<? // TODO: extend title ?>
     <title>Title</title>
 
