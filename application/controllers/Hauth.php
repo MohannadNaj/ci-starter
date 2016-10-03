@@ -44,6 +44,8 @@ class Hauth extends CI_Controller {
 								$user_id = $user->id;
 								// TODO: check if the user has a photoURL, and update if not. 
 								// TODO: re-strucure, unnecessary multiple SQL queries.
+								// TODO: if user is not active.
+
 								$this->ion_auth->set_session($user);
 								$this->session->set_userdata(array('user' => $this->user_model->getUser($user_id)));
 							} else {
@@ -59,6 +61,7 @@ class Hauth extends CI_Controller {
 									$this->session->set_flashdata('temp', 'our developer fu**ed up something!');
 								}
 							}
+							// TODO: update photoURL to local path if exist
 								if(!empty($data['user_profile']))
 									imgurl_to_thumb($data['user_profile']['photoURL'], $user_id);
 								redirect(site_url());
