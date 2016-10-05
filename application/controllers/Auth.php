@@ -8,7 +8,6 @@ class Auth extends My_Controller {
 		$this->load->database();
 		$this->load->library(array('ion_auth','form_validation'));
 		$this->load->helper(array('url','language'));
-		$this->data['auth_view'] =  ($this->ion_auth->logged_in() ? "user" : "guest");
 		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 
 		$this->lang->load('auth');
@@ -60,7 +59,7 @@ class Auth extends My_Controller {
 			
 			$login = $this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember);
 			if(! $login) {
-				$this->ion_auth_model->identity_column = 'email';
+				$this->ion_auth_model->identity_column = 'username';
 				$login = $this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember);
 			}
 			if ($login)
@@ -86,16 +85,6 @@ class Auth extends My_Controller {
 			// the user is not logging in so display the login page
 			// set the flash data error message if there is one
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-
-			$this->data['identity'] = array('name' => 'identity',
-				'id'    => 'identity',
-				'type'  => 'text',
-				'value' => $this->form_validation->set_value('identity'),
-			);
-			$this->data['password'] = array('name' => 'password',
-				'id'   => 'password',
-				'type' => 'password',
-			);
 		}
 	}
 
@@ -133,29 +122,6 @@ class Auth extends My_Controller {
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
 			$this->data['min_password_length'] = $this->config->item('min_password_length', 'ion_auth');
-			$this->data['old_password'] = array(
-				'name' => 'old',
-				'id'   => 'old',
-				'type' => 'password',
-			);
-			$this->data['new_password'] = array(
-				'name'    => 'new',
-				'id'      => 'new',
-				'type'    => 'password',
-				'pattern' => '^.{'.$this->data['min_password_length'].'}.*$',
-			);
-			$this->data['new_password_confirm'] = array(
-				'name'    => 'new_confirm',
-				'id'      => 'new_confirm',
-				'type'    => 'password',
-				'pattern' => '^.{'.$this->data['min_password_length'].'}.*$',
-			);
-			$this->data['user_id'] = array(
-				'name'  => 'user_id',
-				'id'    => 'user_id',
-				'type'  => 'hidden',
-				'value' => $user->id,
-			);
 		}
 		else
 		{
@@ -194,18 +160,14 @@ class Auth extends My_Controller {
 		if ($this->form_validation->run() == false)
 		{
 			$this->data['type'] = $this->config->item('identity','ion_auth');
-			// setup the input
-			$this->data['identity'] = array('name' => 'identity',
-				'id' => 'identity',
-			);
 
-			if ( $this->config->item('identity', 'ion_auth') != 'email' ){
-				$this->data['identity_label'] = $this->lang->line('forgot_password_identity_label');
-			}
-			else
-			{
-				$this->data['identity_label'] = $this->lang->line('forgot_password_email_identity_label');
-			}
+				$this->data['identity_label'] = $this->lang->line(
+				// if
+				$this->config->item('identity', 'ion_auth') != 'email' ?
+				// not email
+				'forgot_password_identity_label' :
+				// email
+				'forgot_password_email_identity_label');
 
 			// set any errors and display the form
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
@@ -694,19 +656,6 @@ class Auth extends My_Controller {
 			// display the create group form
 			// set the flash data error message if there is one
 			$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
-
-			$this->data['group_name'] = array(
-				'name'  => 'group_name',
-				'id'    => 'group_name',
-				'type'  => 'text',
-				'value' => $this->form_validation->set_value('group_name'),
-			);
-			$this->data['description'] = array(
-				'name'  => 'description',
-				'id'    => 'description',
-				'type'  => 'text',
-				'value' => $this->form_validation->set_value('description'),
-			);
 
 		}
 	}
