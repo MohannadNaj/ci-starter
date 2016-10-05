@@ -11,15 +11,15 @@ class User_model extends My_Model
 	public function getUser($id = null) {
 		if(empty($id)) return false;
 		
-		$result = $this->db->select($this->fields)->from($this->_table)->where(array('id' => $id))->limit(1)->get()->result_array();
-		return isset($result[0]) ? $result[0] : false;
+		$result = (array) $this->with('social_profile')->get($id);
+		return empty($result) ? false : $result;
 	}
 
 	public function getUserByUserName($username = null) {
 		if(empty($username)) return false;
 		
-		$result = $this->db->select($this->fields)->from($this->_table)->where(array('username' => $username))->limit(1)->get()->result_array();
-		return isset($result[0]) ? $result[0] : false;
-	}
+		$result = (array) $this->with('social_profile')->get_by('username', $username);
 
+		return empty($result) ? false : $result;
+	}
 }
