@@ -48,8 +48,18 @@ class Auth extends My_Controller {
 		$this->data['title'] = $this->lang->line('login_heading');
 
 		//validate form input
-		$this->form_validation->set_rules('identity', str_replace(':', '', $this->lang->line('login_identity_label')), 'required');
-		$this->form_validation->set_rules('password', str_replace(':', '', $this->lang->line('login_password_label')), 'required');
+		$this->form_validation->set_rules(array(
+		        array(
+		                'field' => 'identity',
+		                'label' => str_replace(':', '', $this->lang->line('login_identity_label')),
+		                'rules' => 'required'
+		        ),
+		        array(
+		                'field' => 'password',
+		                'label' => str_replace(':', '', $this->lang->line('login_password_label')),
+		                'rules' => 'required',
+		        )
+		));
 
 		if ($this->form_validation->run() == true)
 		{
@@ -104,9 +114,23 @@ class Auth extends My_Controller {
 	// change password
 	public function change_password()
 	{
-		$this->form_validation->set_rules('old', $this->lang->line('change_password_validation_old_password_label'), 'required');
-		$this->form_validation->set_rules('new', $this->lang->line('change_password_validation_new_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[new_confirm]');
-		$this->form_validation->set_rules('new_confirm', $this->lang->line('change_password_validation_new_password_confirm_label'), 'required');
+		$this->form_validation->set_rules(array(
+			array(
+				'field' => 'old',
+				'label'=> $this->lang->line('change_password_validation_old_password_label'),
+				'rules' => 'required'
+			),
+			array(
+				'field' => 'new',
+				'label'=> $this->lang->line('change_password_validation_new_password_label'),
+				'rules' => 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[new_confirm]'
+			),
+			array(
+				'field' => 'new_confirm',
+				'label'=> $this->lang->line('change_password_validation_new_password_confirm_label'),
+				'rules' => 'required'
+			)
+		));
 
 		if (!$this->ion_auth->logged_in())
 		{
@@ -147,15 +171,14 @@ class Auth extends My_Controller {
 	public function forgot_password()
 	{
 		// setting validation rules by checking whether identity is username or email
-		if($this->config->item('identity', 'ion_auth') != 'email' )
-		{
-		   $this->form_validation->set_rules('identity', $this->lang->line('forgot_password_identity_label'), 'required');
-		}
-		else
-		{
-		   $this->form_validation->set_rules('identity', $this->lang->line('forgot_password_validation_email_label'), 'required|valid_email');
-		}
 
+		$this->form_validation->set_rules(array(
+			array(
+				'field' => 'identity',
+				'label' => $this->lang->line( $this->config->item('identity', 'ion_auth') != 'email' ? 'forgot_password_identity_label' : 'forgot_password_validation_email_label' ),
+				'rules' => $this->config->item('identity', 'ion_auth') != 'email' ? 'required' : 'required|valid_email',
+				)
+		));
 
 		if ($this->form_validation->run() == false)
 		{
@@ -223,8 +246,18 @@ class Auth extends My_Controller {
 		{
 			// if the code is valid then display the password reset form
 
-			$this->form_validation->set_rules('new', $this->lang->line('reset_password_validation_new_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[new_confirm]');
-			$this->form_validation->set_rules('new_confirm', $this->lang->line('reset_password_validation_new_password_confirm_label'), 'required');
+			$this->form_validation->set_rules(array(
+		        array(
+		                'field' => 'new',
+		                'label' => $this->lang->line('reset_password_validation_new_password_label'),
+		                'rules' => 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[new_confirm]'
+		        ),
+		        array(
+		                'field' => 'new_confirm',
+		                'label' => $this->lang->line('reset_password_validation_new_password_confirm_label'),
+		                'rules' => 'required'
+		        )
+			));
 
 			if ($this->form_validation->run() == false)
 			{
@@ -234,12 +267,6 @@ class Auth extends My_Controller {
 				$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
 				$this->data['min_password_length'] = $this->config->item('min_password_length', 'ion_auth');
-				$this->data['new_password_confirm'] = array(
-					'name'    => 'new_confirm',
-					'id'      => 'new_confirm',
-					'type'    => 'password',
-					'pattern' => '^.{'.$this->data['min_password_length'].'}.*$',
-				);
 				$this->data['user_id'] = $user->id;
 				
 				$this->data['csrf'] = $this->_get_csrf_nonce();
@@ -325,8 +352,18 @@ class Auth extends My_Controller {
 		$id = (int) $id;
 
 		$this->load->library('form_validation');
-		$this->form_validation->set_rules('confirm', $this->lang->line('deactivate_validation_confirm_label'), 'required');
-		$this->form_validation->set_rules('id', $this->lang->line('deactivate_validation_user_id_label'), 'required|alpha_numeric');
+		$this->form_validation->set_rules(array(
+	        array(
+	                'field' => 'confirm',
+	                'label' => $this->lang->line('deactivate_validation_confirm_label'),
+	                'rules' => 'required'
+	        ),
+	        array(
+	                'field' => 'id',
+	                'label' => $this->lang->line('deactivate_validation_user_id_label'),
+	                'rules' => 'required|alpha_numeric'
+	        )
+		));
 
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -373,21 +410,68 @@ class Auth extends My_Controller {
         $this->data['identity_column'] = $identity_column;
 
         // validate form input
-        $this->form_validation->set_rules('first_name', $this->lang->line('create_user_validation_fname_label'), 'required');
-        $this->form_validation->set_rules('last_name', $this->lang->line('create_user_validation_lname_label'), 'required');
+        $this->form_validation->set_rules(array(
+		    array(
+		    	'field' => 'first_name',
+		    	'label' => $this->lang->line('create_user_validation_fname_label'),
+		    	'rules' => 'required'
+		    	),
+
+		    array(
+		    	'field' => 'last_name',
+		    	'label' => $this->lang->line('create_user_validation_lname_label'),
+		    	'rules' => 'required'
+		    	),
+		            array(
+		    	'field' => 'phone',
+		    	'label' => $this->lang->line('create_user_validation_phone_label'),
+		    	'rules' => 'trim'
+		    	),
+					 
+		    array(
+		    	'field' => 'company',
+		    	'label' => $this->lang->line('create_user_validation_company_label'),
+		    	'rules' => 'trim'
+		    	),
+					 
+		    array(
+		    	'field' => 'password',
+		    	'label' => $this->lang->line('create_user_validation_password_label'),
+		    	'rules' => 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]'
+		    	),
+
+		    array(
+		    	'field' => 'password_confirm',
+		    	'label' => $this->lang->line('create_user_validation_password_confirm_label'),
+		    	'rules' => 'required'
+		    	)
+		));
+
         if($identity_column!=='email')
         {
-            $this->form_validation->set_rules('identity',$this->lang->line('create_user_validation_identity_label'),'required|is_unique['.$tables['users'].'.'.$identity_column.']');
-            $this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'required|valid_email');
+        	$this->form_validation->set_rules(array(
+	            array(
+	            	'field' => 'identity',
+	            	'label' => $this->lang->line('create_user_validation_identity_label'),
+	            	'rules' => 'required|is_unique['.$tables['users'].'.'.$identity_column.']'
+	            	),
+	            array(
+	            	'field' => 'email',
+	            	'label' => $this->lang->line('create_user_validation_email_label'),
+	            	'rules' => 'required|valid_email'
+	            	)
+            ));
         }
         else
         {
-            $this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'required|valid_email|is_unique[' . $tables['users'] . '.email]');
+        	$this->form_validation->set_rules(array(
+	            array(
+	            	'field' => 'email',
+	            	'label' => $this->lang->line('create_user_validation_email_label'),
+	            	'rules' => 'required|valid_email|is_unique[' . $tables['users'] . '.email]'
+	            	)
+            ));
         }
-        $this->form_validation->set_rules('phone', $this->lang->line('create_user_validation_phone_label'), 'trim');
-        $this->form_validation->set_rules('company', $this->lang->line('create_user_validation_company_label'), 'trim');
-        $this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
-        $this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
 
         if ($this->form_validation->run() == true)
         {
@@ -432,10 +516,28 @@ class Auth extends My_Controller {
 		$currentGroups = $this->ion_auth->get_users_groups($id)->result();
 
 		// validate form input
-		$this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'required');
-		$this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'required');
-		$this->form_validation->set_rules('phone', $this->lang->line('edit_user_validation_phone_label'), 'required');
-		$this->form_validation->set_rules('company', $this->lang->line('edit_user_validation_company_label'), 'required');
+		$this->form_validation->set_rules(array(
+			array(
+				'field' => 'first_name',
+				'label' => $this->lang->line('edit_user_validation_fname_label'),
+				'rules' => 'required'
+				),
+			array(
+				'field' => 'last_name',
+				'label' => $this->lang->line('edit_user_validation_lname_label'),
+				'rules' => 'required'
+				),
+			array(
+				'field' => 'phone',
+				'label' => $this->lang->line('edit_user_validation_phone_label'),
+				'rules' => 'required'
+				),
+			array(
+				'field' => 'company',
+				'label' => $this->lang->line('edit_user_validation_company_label'),
+				'rules' => 'required'
+				),
+		));
 
 		if (isset($_POST) && !empty($_POST))
 		{
@@ -448,8 +550,18 @@ class Auth extends My_Controller {
 			// update the password if it was posted
 			if ($this->input->post('password'))
 			{
-				$this->form_validation->set_rules('password', $this->lang->line('edit_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
-				$this->form_validation->set_rules('password_confirm', $this->lang->line('edit_user_validation_password_confirm_label'), 'required');
+				$this->form_validation->set_rules(array(
+					array(
+						'field' => 'password',
+						'label' => $this->lang->line('edit_user_validation_password_label'),
+						'rules' => 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]'
+						),
+					array(
+						'field' => 'password_confirm',
+						'label' => $this->lang->line('edit_user_validation_password_confirm_label'),
+						'rules' => 'required'
+						)
+				));
 			}
 
 			if ($this->form_validation->run() === TRUE)
@@ -543,7 +655,13 @@ class Auth extends My_Controller {
 		}
 
 		// validate form input
-		$this->form_validation->set_rules('group_name', $this->lang->line('create_group_validation_name_label'), 'required|alpha_dash');
+		$this->form_validation->set_rules(array(
+			array(
+				'field' => 'group_name',
+				'label' => $this->lang->line('create_group_validation_name_label'),
+				'rules' => 'required|alpha_dash'
+				)
+		));
 
 		if ($this->form_validation->run() == TRUE)
 		{
@@ -584,7 +702,13 @@ class Auth extends My_Controller {
 		$group = $this->ion_auth->group($id)->row();
 
 		// validate form input
-		$this->form_validation->set_rules('group_name', $this->lang->line('edit_group_validation_name_label'), 'required|alpha_dash');
+		$this->form_validation->set_rules(array(
+			array(
+				'field' => 'group_name',
+				'label' => $this->lang->line('edit_group_validation_name_label'),
+				'rules' => 'required|alpha_dash'
+				)
+		));
 
 		if (isset($_POST) && !empty($_POST))
 		{
