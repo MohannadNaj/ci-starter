@@ -48,18 +48,7 @@ class Auth extends My_Controller {
 		$this->data['title'] = $this->lang->line('login_heading');
 
 		//validate form input
-		$this->form_validation->set_rules(array(
-		        array(
-		                'field' => 'identity',
-		                'label' => str_replace(':', '', $this->lang->line('login_identity_label')),
-		                'rules' => 'required'
-		        ),
-		        array(
-		                'field' => 'password',
-		                'label' => str_replace(':', '', $this->lang->line('login_password_label')),
-		                'rules' => 'required',
-		        )
-		));
+		$this->form_validation->load();
 
 		if ($this->form_validation->run() == true)
 		{
