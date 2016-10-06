@@ -41,4 +41,11 @@
       </ul>
     </div><!-- /.navbar-collapse -->  </div><!-- /.container-fluid -->
 </nav>
-
+<?if($is_password_by_social) :?>
+<div class="container">
+  <div class="alert alert-warning">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <strong>You need to set your password!</strong> currently you are signed with your social account without a password ...
+  </div>
+</div>
+<?php endif ?>

@@ -234,24 +234,14 @@ class Auth extends My_Controller {
 				$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
 				$this->data['min_password_length'] = $this->config->item('min_password_length', 'ion_auth');
-				$this->data['new_password'] = array(
-					'name' => 'new',
-					'id'   => 'new',
-					'type' => 'password',
-					'pattern' => '^.{'.$this->data['min_password_length'].'}.*$',
-				);
 				$this->data['new_password_confirm'] = array(
 					'name'    => 'new_confirm',
 					'id'      => 'new_confirm',
 					'type'    => 'password',
 					'pattern' => '^.{'.$this->data['min_password_length'].'}.*$',
 				);
-				$this->data['user_id'] = array(
-					'name'  => 'user_id',
-					'id'    => 'user_id',
-					'type'  => 'hidden',
-					'value' => $user->id,
-				);
+				$this->data['user_id'] = $user->id;
+				
 				$this->data['csrf'] = $this->_get_csrf_nonce();
 				$this->data['code'] = $code;
 			}
@@ -424,56 +414,6 @@ class Auth extends My_Controller {
             // display the create user form
             // set the flash data error message if there is one
             $this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
-
-            $this->data['first_name'] = array(
-                'name'  => 'first_name',
-                'id'    => 'first_name',
-                'type'  => 'text',
-                'value' => $this->form_validation->set_value('first_name'),
-            );
-            $this->data['last_name'] = array(
-                'name'  => 'last_name',
-                'id'    => 'last_name',
-                'type'  => 'text',
-                'value' => $this->form_validation->set_value('last_name'),
-            );
-            $this->data['identity'] = array(
-                'name'  => 'identity',
-                'id'    => 'identity',
-                'type'  => 'text',
-                'value' => $this->form_validation->set_value('identity'),
-            );
-            $this->data['email'] = array(
-                'name'  => 'email',
-                'id'    => 'email',
-                'type'  => 'text',
-                'value' => $this->form_validation->set_value('email'),
-            );
-            $this->data['company'] = array(
-                'name'  => 'company',
-                'id'    => 'company',
-                'type'  => 'text',
-                'value' => $this->form_validation->set_value('company'),
-            );
-            $this->data['phone'] = array(
-                'name'  => 'phone',
-                'id'    => 'phone',
-                'type'  => 'text',
-                'value' => $this->form_validation->set_value('phone'),
-            );
-            $this->data['password'] = array(
-                'name'  => 'password',
-                'id'    => 'password',
-                'type'  => 'password',
-                'value' => $this->form_validation->set_value('password'),
-            );
-            $this->data['password_confirm'] = array(
-                'name'  => 'password_confirm',
-                'id'    => 'password_confirm',
-                'type'  => 'password',
-                'value' => $this->form_validation->set_value('password_confirm'),
-            );
-
         }
     }
 
@@ -590,41 +530,6 @@ class Auth extends My_Controller {
 		$this->data['groups'] = $groups;
 		$this->data['currentGroups'] = $currentGroups;
 
-		$this->data['first_name'] = array(
-			'name'  => 'first_name',
-			'id'    => 'first_name',
-			'type'  => 'text',
-			'value' => $this->form_validation->set_value('first_name', $user->first_name),
-		);
-		$this->data['last_name'] = array(
-			'name'  => 'last_name',
-			'id'    => 'last_name',
-			'type'  => 'text',
-			'value' => $this->form_validation->set_value('last_name', $user->last_name),
-		);
-		$this->data['company'] = array(
-			'name'  => 'company',
-			'id'    => 'company',
-			'type'  => 'text',
-			'value' => $this->form_validation->set_value('company', $user->company),
-		);
-		$this->data['phone'] = array(
-			'name'  => 'phone',
-			'id'    => 'phone',
-			'type'  => 'text',
-			'value' => $this->form_validation->set_value('phone', $user->phone),
-		);
-		$this->data['password'] = array(
-			'name' => 'password',
-			'id'   => 'password',
-			'type' => 'password'
-		);
-		$this->data['password_confirm'] = array(
-			'name' => 'password_confirm',
-			'id'   => 'password_confirm',
-			'type' => 'password'
-		);
-
 	}
 
 	// create a new group
@@ -705,21 +610,7 @@ class Auth extends My_Controller {
 		// pass the user to the view
 		$this->data['group'] = $group;
 
-		$readonly = $this->config->item('admin_group', 'ion_auth') === $group->name ? 'readonly' : '';
-
-		$this->data['group_name'] = array(
-			'name'    => 'group_name',
-			'id'      => 'group_name',
-			'type'    => 'text',
-			'value'   => $this->form_validation->set_value('group_name', $group->name),
-			$readonly => $readonly,
-		);
-		$this->data['group_description'] = array(
-			'name'  => 'group_description',
-			'id'    => 'group_description',
-			'type'  => 'text',
-			'value' => $this->form_validation->set_value('group_description', $group->description),
-		);
+		$this->data['readonly'] = $this->config->item('admin_group', 'ion_auth') === $group->name ? 'readonly' : '';
 
 	}
 

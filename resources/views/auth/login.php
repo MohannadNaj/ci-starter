@@ -14,7 +14,7 @@
 
   <div class="form-group">
     <label for="identity"><?php echo lang('login_identity_label');?></label>
-    <input type="text" class="form-control" name="identity" id="identity" placeholder="<?php echo lang('login_identity_label');?>">
+    <input type="text" class="form-control" name="identity" id="identity" placeholder="<?php echo lang('login_identity_label');?>" value="<?=$this->form_validation->set_value('identity')?>">
   </div>
 
     <div class="form-group">
