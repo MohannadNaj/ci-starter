@@ -2,9 +2,16 @@
 
 class MY_Form_validation extends CI_Form_validation
 {
+	public $with = array();
+
 	public function __construct($rules = array())
 	{
         parent::__construct($rules);
+	}
+
+	public function with($vars = array()) {
+		$this->with = $vars;
+		return $this;
 	}
 
 	public function load($path = false)
@@ -40,6 +47,10 @@ class MY_Form_validation extends CI_Form_validation
 	private function __load($path) {
 		$ci = $this->CI;
 		
+		if(!empty($this->with)) {
+			extract($this->with);
+		}
+
 		$file = include $path;
 
 		if(is_array($file)) {
