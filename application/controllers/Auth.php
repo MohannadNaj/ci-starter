@@ -59,7 +59,7 @@ class Auth extends My_Controller {
 			
 			$login = $this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember);
 			if(! $login) {
-				$this->ion_auth_model->identity_column = 'username';
+				$this->ion_auth_model->identity_column = 'email';
 				$login = $this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember);
 			}
 			if ($login)
