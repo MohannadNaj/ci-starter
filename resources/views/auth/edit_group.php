@@ -18,8 +18,8 @@
   </div>
 
   <div class="form-group">
-    <label for="description"><?php echo lang('edit_group_desc_label');?></label>
-    <input type="text" class="form-control" name="description" id="description" placeholder="<?php echo lang('edit_group_desc_label');?>" value="<?=$this->form_validation->set_value('group_description', $group->description)?>">
+    <label for="group_description"><?php echo lang('edit_group_desc_label');?></label>
+    <input type="text" class="form-control" name="group_description" id="group_description" placeholder="<?php echo lang('edit_group_desc_label');?>" value="<?=$this->form_validation->set_value('group_description', $group->description)?>">
   </div>
 
   <button type="submit" class="btn btn-primary"><?=lang('edit_group_submit_btn')?></button>
