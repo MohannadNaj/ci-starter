@@ -35,10 +35,10 @@ class App
 		$id = $this->ci->session->userdata('user_id');
 		if(!$id)
 			return false;
-		$this->load->model('user_model');
-		$user = $this->user_model->getUser($id);
+		$this->ci->load->model('user_model');
+		$user = $this->ci->user_model->getUser($id);
 		if($user)
-			$this->session->set_userdata(array('user' => $user));
+			$this->ci->session->set_userdata(array('user' => $user));
 		else
 			return false;
 	}
