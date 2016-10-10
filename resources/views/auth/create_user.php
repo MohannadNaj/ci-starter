@@ -21,6 +21,12 @@
     <label for="last_name"><?php echo lang('create_user_lname_label');?></label>
     <input type="text" class="form-control" name="last_name" id="last_name" placeholder="<?php echo lang('create_user_lname_label');?>" value="<?=$this->form_validation->set_value('last_name')?>">
   </div>
+
+  <div class="form-group">
+    <label for="bio"><?php echo lang('create_user_bio_label');?></label>
+    <textarea maxlength="250" class="form-control" rows="5" id="bio" name="bio"><?=$this->form_validation->set_value('bio')?></textarea>
+    <h6 class="pull-right count_message"><span class="counter"></span> remaining</h6>
+  </div>
       
       <?php if($identity_column!=='email'): ?>
   <div class="form-group <?=form_error('identity') ? 'has-error': '';?>"">

@@ -1,5 +1,8 @@
 <?php
 
+$ci->load->library('app');
+$ci->app->setJs('bio_max_length', $ci->config->item('bio_max_length','app'));
+
 if ($ci->input->post('password'))
 {
 	$ci->form_validation->set_rules(array(
@@ -37,4 +40,9 @@ return array(
 			'label' => $ci->lang->line('edit_user_validation_company_label'),
 			'rules' => 'required'
 			),
+		array(
+			'field' => 'bio',
+			'label' => 'Bio',
+			'rules' => 'max_length['. $ci->config->item('bio_max_length','app') .']'
+			)
 	);

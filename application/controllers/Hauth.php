@@ -128,6 +128,7 @@ class Hauth extends CI_Controller {
 		$result = array();
 		$result['additional_data']['is_password_by_social'] = true;
 		$result['additional_data']['photoURL'] = $data['user_profile']['photoURL'];
+		$result['additional_data']['bio'] = substr($data['user_profile']['description'],0,250);
 
 		$this->load->library('slug', array(
 		    'field' => 'username',

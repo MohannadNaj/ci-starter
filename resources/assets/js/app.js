@@ -10,4 +10,4 @@ const app = new Vue({
 });
 
 require('./modules/alert');
-require('./modules/one');
+require('./modules/inputs');

@@ -23,6 +23,12 @@
   </div>
 
   <div class="form-group">
+    <label for="bio"><?php echo lang('create_user_bio_label');?></label>
+    <textarea maxlength="250" class="form-control" rows="5" id="bio" name="bio"><?=$this->form_validation->set_value('bio', $user->bio)?></textarea>
+    <h6 class="pull-right count_message"><?=config_item('bio_max_length', 'app')?> <span class="counter"></span> remaining</h6>
+  </div>
+
+  <div class="form-group">
     <label for="company"><?php echo lang('edit_user_company_label');?></label>
     <input type="text" class="form-control" name="company" id="company" placeholder="<?php echo lang('edit_user_company_label');?>" value="<?=$this->form_validation->set_value('company', $user->company)?>">
   </div>

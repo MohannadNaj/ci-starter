@@ -10,7 +10,7 @@ class Auth extends My_Controller {
 		$this->load->helper(array('url','language'));
 		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 
-		$this->lang->load('auth');
+		$this->lang->load(array('auth', 'app'));
 	}
 
 	// redirect if needed, otherwise display the user list
@@ -368,6 +368,7 @@ class Auth extends My_Controller {
                 'last_name'  => $this->input->post('last_name'),
                 'company'    => $this->input->post('company'),
                 'phone'      => $this->input->post('phone'),
+                'bio' => $this->input->post('bio')
             );
         }
         if ($this->form_validation->run() == true && $this->ion_auth->register($identity, $password, $email, $additional_data))
@@ -417,6 +418,7 @@ class Auth extends My_Controller {
 					'last_name'  => $this->input->post('last_name'),
 					'company'    => $this->input->post('company'),
 					'phone'      => $this->input->post('phone'),
+					'bio' => $this->input->post('bio'),
 				);
 
 				// update the password if it was posted
