@@ -8,6 +8,7 @@ class App
 	function __construct($config = array())
 	{
 		$this->ci =& get_instance();
+		$this->ci->load->config('app', TRUE);
 		$this->init();
 	}
 

@@ -103,7 +103,7 @@ $autoload['helper'] = array('php_string_functions','url','form','global', 'cooki
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = array('app');
+$autoload['config'] = array();
 
 /*
 | -------------------------------------------------------------------
