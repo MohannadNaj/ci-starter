@@ -22,7 +22,7 @@ $hybridauth = include(VIEWSDIR . 'config' . DIRECTORY_SEPARATOR . 'hybridauthlib
                                 );
                         }
                     ?>
-                        <a href="<?=base_url(config_item('hybridauth_login_route_prefix') . $provider_key)?>" class="btn <?=$provider['btn_class']?>"><i class="fa <?=$provider['font_awesome']?>"></i> <?=$provider['label']?></a>
+                        <a href="<?=base_url($this->config->item('hybridauth_login_route_prefix','app') . $provider_key)?>" class="btn <?=$provider['btn_class']?>"><i class="fa <?=$provider['font_awesome']?>"></i> <?=$provider['label']?></a>
                     <?php endforeach ?>
                     </div>
                     or

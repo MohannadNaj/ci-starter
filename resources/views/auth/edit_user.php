@@ -25,7 +25,7 @@
   <div class="form-group">
     <label for="bio"><?php echo lang('create_user_bio_label');?></label>
     <textarea maxlength="250" class="form-control" rows="5" id="bio" name="bio"><?=$this->form_validation->set_value('bio', $user->bio)?></textarea>
-    <h6 class="pull-right count_message"><?=config_item('bio_max_length', 'app')?> <span class="counter"></span> remaining</h6>
+    <h6 class="pull-right count_message"><?=$this->config->item('bio_max_length', 'app')?> <span class="counter"></span> remaining</h6>
   </div>
 
   <div class="form-group">
