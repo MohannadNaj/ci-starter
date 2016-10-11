@@ -30,13 +30,12 @@ class MY_Form_validation extends CI_Form_validation
 				);
 			foreach ($guesses as $guess_path) {
 				if(file_exists($guess_path)) {
-					$this->__load($guess_path);
-					return ;
+					return $this->__load($guess_path);
 				}
 			}
 		} else {
-			$this->__load($path);
-			return ;
+			return $this->__load($path);
+			
 		}
 
 		show_error('Validation file is not found');
@@ -47,6 +46,7 @@ class MY_Form_validation extends CI_Form_validation
 		
 		if(!empty($this->with)) {
 			extract($this->with);
+			$this->with = array();
 		}
 
 		$file = include $path;
@@ -54,5 +54,6 @@ class MY_Form_validation extends CI_Form_validation
 		if(is_array($file)) {
 			$this->set_rules($file);
 		}
+		return $this;
 	}
 }
