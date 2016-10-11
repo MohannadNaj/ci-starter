@@ -1,5 +1,5 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+// TODO: set shared validation rules
 class MY_Form_validation extends CI_Form_validation
 {
 	public $with = array();

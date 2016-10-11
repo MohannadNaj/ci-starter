@@ -50,6 +50,7 @@ class Hauth extends CI_Controller {
 								$this->session->set_userdata(array('user' => $this->user_model->getUser($user_id)));
 							} else {
 								// new social-only account
+								// TODO: if email already exists
 								extract($this->__prepareNewSocialUser($provider, $data));
 								$user_id = $this->ion_auth->register($identity, $password, $email, $additional_data); //ionAuth returns last inserted id if the insert was successful.
 								if($user_id && $this->social->getId()) {
