@@ -52,13 +52,12 @@ return array(
 	    	'label' => $ci->lang->line('create_user_validation_company_label'),
 	    	'rules' => 'trim'
 	    	),
-				 
-	    array(
-	    	'field' => 'password',
-	    	'label' => $ci->lang->line('create_user_validation_password_label'),
-	    	'rules' => 'required|min_length[' . $ci->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $ci->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]'
-	    	),
-
+		$this->with(
+			array('pass_lang_file' => 'create_user_validation_password_label',
+				'pass_match' => 'password_confirm',
+				'pass_field' => 'password'
+				)
+			)->shared('password'),
 	    array(
 	    	'field' => 'password_confirm',
 	    	'label' => $ci->lang->line('create_user_validation_password_confirm_label'),
