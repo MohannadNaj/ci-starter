@@ -30,28 +30,17 @@ $ci->app->setJs('bio_max_length', $ci->config->item('bio_max_length','app'));
     }
 
 return array(
-	    array(
-	    	'field' => 'first_name',
-	    	'label' => $ci->lang->line('create_user_validation_fname_label'),
-	    	'rules' => 'required'
-	    	),
-
-	    array(
-	    	'field' => 'last_name',
-	    	'label' => $ci->lang->line('create_user_validation_lname_label'),
-	    	'rules' => 'required'
-	    	),
-	            array(
-	    	'field' => 'phone',
-	    	'label' => $ci->lang->line('create_user_validation_phone_label'),
-	    	'rules' => 'trim'
-	    	),
-				 
-	    array(
-	    	'field' => 'company',
-	    	'label' => $ci->lang->line('create_user_validation_company_label'),
-	    	'rules' => 'trim'
-	    	),
+		$this->with(
+			[
+			'first_name_label' => $ci->lang->line('create_user_validation_fname_label'),
+			'last_name_label' => $ci->lang->line('create_user_validation_lname_label'),
+			'phone_label' => $ci->lang->line('create_user_validation_phone_label'),
+			'company_label' => $ci->lang->line('create_user_validation_company_label'),
+			'bio_label' => $ci->lang->line('create_user_validation_bio_label')
+			])->shared(
+			'first_name', 'last_name', 'phone', 'company', 'bio', 0
+			)
+		,
 		$this->with(
 			array('pass_lang_file' => 'create_user_validation_password_label',
 				'pass_match' => 'password_confirm',
@@ -63,11 +52,4 @@ return array(
 	    	'label' => $ci->lang->line('create_user_validation_password_confirm_label'),
 	    	'rules' => 'required'
 	    	),
-
-		array(
-			'field' => 'bio',
-			'label' => 'Bio',
-			'rules' => 'max_length['. $ci->config->item('bio_max_length','app') .']'
-			)
-
 	);

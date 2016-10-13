@@ -21,29 +21,14 @@ if ($ci->input->post('password'))
 }
 
 return array(
-		array(
-			'field' => 'first_name',
-			'label' => $ci->lang->line('edit_user_validation_fname_label'),
-			'rules' => 'required'
-			),
-		array(
-			'field' => 'last_name',
-			'label' => $ci->lang->line('edit_user_validation_lname_label'),
-			'rules' => 'required'
-			),
-		array(
-			'field' => 'phone',
-			'label' => $ci->lang->line('edit_user_validation_phone_label'),
-			'rules' => 'required'
-			),
-		array(
-			'field' => 'company',
-			'label' => $ci->lang->line('edit_user_validation_company_label'),
-			'rules' => 'required'
-			),
-		array(
-			'field' => 'bio',
-			'label' => 'Bio',
-			'rules' => 'max_length['. $ci->config->item('bio_max_length','app') .']'
+		$this->with(
+			[
+			'first_name_label' => $ci->lang->line('edit_user_validation_fname_label'),
+			'last_name_label' => $ci->lang->line('edit_user_validation_lname_label'),
+			'phone_label' => $ci->lang->line('edit_user_validation_phone_label'),
+			'company_label' => $ci->lang->line('edit_user_validation_company_label'),
+			'bio_label' => $ci->lang->line('edit_user_validation_bio_label'),
+			])->shared(
+			'first_name', 'last_name', 'phone', 'company', 'bio', 0
 			)
 	);
