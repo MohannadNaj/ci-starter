@@ -12,11 +12,7 @@ if ($ci->input->post('password'))
 			'pass_field' => 'password'
 			])->shared('password')
 		,
-		array(
-			'field' => 'password_confirm',
-			'label' => $ci->lang->line('edit_user_validation_password_confirm_label'),
-			'rules' => 'required'
-			)
+		$this->required_field('password_confirm', $ci->lang->line('edit_user_validation_password_confirm_label'))
 	));
 }
 

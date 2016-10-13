@@ -97,6 +97,13 @@ class MY_Form_validation extends CI_Form_validation
 		return parent::set_rules($field, $label, $rules, $errors);
 	}
 
+	public function required_field($field, $label) {
+		return 	array(
+			'field' => $field,
+			'label' => $label,
+			'rules' => 'required'
+			);
+	}
 	private function __prepare_set_rules($row) {
 		// If the field label wasn't passed we use the field name
 		$label = isset($row['label']) ? $row['label'] : $row['field'];
